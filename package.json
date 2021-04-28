@@ -18,7 +18,9 @@
         "next": "latest",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-icons": "^4.2.0"
+        "react-icons": "^4.2.0",
+        "react-query": "^3.13.12",
+        "zustand": "^3.4.2"
     },
     "devDependencies": {
         "@types/node": "^14.6.0",

@@ -3,15 +3,23 @@ import { NominatedList } from '../components/layout/NominatedList';
 import { SearchBar } from '../components/layout/SearchBar';
 import { MovieList } from '../components/layout/MovieList';
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, StackDivider, VStack } from '@chakra-ui/react';
 
 const Index = () => (
-    <Flex direction="column" mt="10vh">
+    <>
         <DarkModeSwitch />
-        <NominatedList />
-        <SearchBar />
-        <MovieList />
-    </Flex>
+        <Flex direction="column" mt="10vh">
+            <VStack
+                divider={<StackDivider borderColor="blackAlpha.700" />}
+                spacing={2}
+                align="stretch"
+            >
+                <NominatedList />
+                <SearchBar />
+                <MovieList />
+            </VStack>
+        </Flex>
+    </>
 );
 
 export default Index;
