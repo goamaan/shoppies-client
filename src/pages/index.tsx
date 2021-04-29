@@ -1,23 +1,13 @@
-import { DarkModeSwitch } from '../components/layout/DarkModeSwitch';
-import { NominatedList } from '../components/layout/NominatedList';
-import { SearchBar } from '../components/layout/SearchBar';
-import { MovieList } from '../components/layout/MovieList';
+import { DarkModeSwitch } from '../components/ui/DarkModeSwitch';
 import React from 'react';
-import { Flex, StackDivider, VStack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { Main } from '../components/Main';
 
 const Index = () => (
     <>
         <DarkModeSwitch />
         <Flex direction="column" mt="10vh">
-            <VStack
-                divider={<StackDivider borderColor="blackAlpha.700" />}
-                spacing={2}
-                align="stretch"
-            >
-                <NominatedList />
-                <SearchBar />
-                <MovieList />
-            </VStack>
+            <Main />
         </Flex>
     </>
 );
