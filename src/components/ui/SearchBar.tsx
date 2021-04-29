@@ -1,4 +1,3 @@
-import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Input } from '@chakra-ui/input';
 import { useEffect, useRef, useState } from 'react';
 import { MotionBox } from './MotionBox';
@@ -14,7 +13,6 @@ export type ISearchBarProps = {
 const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
     const [search, setSearch] = useState('');
     const initial = useRef(true);
-    const textColor = useColorModeValue('black', 'white');
     useEffect(() => {
         if (initial.current) {
             initial.current = false;
@@ -39,6 +37,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
                 variant="flushed"
                 // textColor={textColor}
                 color="shopify.200"
+                zIndex={2}
                 fontSize="2xl"
             />
         </MotionBox>

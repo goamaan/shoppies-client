@@ -14,7 +14,7 @@ const styles = {
     global: (props: any) => ({
         body: {
             fontFamily: 'body',
-            bg: mode('shopify.100', 'bg.800')(props),
+            bg: mode('shopify.100', 'bg.900')(props),
             minH: '100%',
         },
         html: {

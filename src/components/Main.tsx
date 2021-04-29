@@ -32,16 +32,12 @@ const Main: React.FC = ({}) => {
     );
 
     return (
-        <Flex direction="column" justifyContent="space-around" height="80vh">
+        <Flex direction="column" justifyContent="space-around" height="70vh">
             {/* <NominatedList /> */}
             <HStack>
-                {data && data.Search && (
-                    <React.Fragment>
-                        {data.Search.map(() => (
-                            <MovieSkeleton />
-                        ))}
-                    </React.Fragment>
-                )}
+                {Array.apply(null, Array(10)).map(() => (
+                    <MovieSkeleton />
+                ))}
             </HStack>
             <SearchBar setSearchTerm={setSearchTerm} />
             {isLoading && 'loading'}
