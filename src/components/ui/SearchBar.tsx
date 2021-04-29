@@ -2,10 +2,6 @@ import { Input } from '@chakra-ui/input';
 import { useEffect, useRef, useState } from 'react';
 import { MotionBox } from './MotionBox';
 
-// export type ISearchBarProps = {
-//     searchTerm: React.RefObject<HTMLInputElement>;
-// };
-
 export type ISearchBarProps = {
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };

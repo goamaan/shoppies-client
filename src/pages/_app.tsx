@@ -4,7 +4,9 @@ import theme from '../theme';
 import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: { queries: { staleTime: 100000 } },
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

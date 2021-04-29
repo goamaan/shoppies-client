@@ -12,15 +12,30 @@ const MovieThumb: React.FC<IMovieThumbProps> = ({ movie }) => {
         <>
             <MotionBox
                 w="sm"
-                rounded="lg"
+                maxW="sm"
+                h="25vh"
+                maxH="30vh"
+                rounded="md"
                 overflow="hidden"
                 justifyContent="space-around"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
+                whileHover={{ scale: 1.2 }}
             >
-                <Box m="4" rounded="lg" h="100%">
+                <Box
+                    m="4"
+                    rounded="lg"
+                    h="100%"
+                    // width={['0%', '0%', '50%', '100%']}
+                    alignItems="center"
+                >
                     {movie.Poster ? (
-                        <Image alt={movie.Title} w="100%" src={movie.Poster} />
+                        <Image
+                            alt={movie.Title}
+                            w="100%"
+                            src={movie.Poster}
+                            rounded="2xl"
+                        />
                     ) : (
                         <Box bg="gray.200" h="100%" />
                     )}

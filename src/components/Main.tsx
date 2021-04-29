@@ -1,4 +1,4 @@
-import { VStack, StackDivider, HStack, Button, Flex } from '@chakra-ui/react';
+import { HStack, Button, Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { MovieThumb } from './ui/MovieThumb';
 import { NominatedList } from './ui/NominatedList';
@@ -20,7 +20,7 @@ const Main: React.FC = ({}) => {
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const { data, isError, isLoading, isPreviousData, isFetching } = useQuery<
+    const { data, isLoading, isPreviousData, isFetching } = useQuery<
         ResopnseDto,
         Error
     >(
@@ -40,9 +40,17 @@ const Main: React.FC = ({}) => {
                 ))}
             </HStack>
             <SearchBar setSearchTerm={setSearchTerm} />
-            {isLoading && 'loading'}
-
             <HStack>
+                {searchTerm && data && data.Search && (
+                    <Button
+                        h="25vh"
+                        w="3vw"
+                        onClick={() => setPage((old) => Math.max(old - 1, 0))}
+                        disabled={page === 1}
+                    >
+                        {`⇦`}
+                    </Button>
+                )}
                 {isLoading || isFetching
                     ? Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
                     : data &&
@@ -53,28 +61,25 @@ const Main: React.FC = ({}) => {
                               ))}
                           </React.Fragment>
                       )}
-            </HStack>
-            {/* <Button
-                onClick={() => setPage((old) => Math.max(old - 1, 0))}
-                disabled={page === 1}
-            >
-                Previous Page
-            </Button>
-            {searchTerm && data && data.Search && (
-                <Button
-                    onClick={() => {
-                        if (!isPreviousData && page <= 100) {
-                            setPage((old) => old + 1);
+                {searchTerm && data && data.Search && (
+                    <Button
+                        h="25vh"
+                        w="3vw"
+                        onClick={() => {
+                            if (!isPreviousData && page <= 100) {
+                                setPage((old) => old + 1);
+                            }
+                        }}
+                        disabled={
+                            data.Search.length < 10 ||
+                            isPreviousData ||
+                            page > 100
                         }
-                    }}
-                    disabled={
-                        data.Search.length < 10 || isPreviousData || page > 100
-                    }
-                    isLoading={isLoading}
-                >
-                    Next page
-                </Button>
-            )} */}
+                    >
+                        {`⇨`}
+                    </Button>
+                )}
+            </HStack>
         </Flex>
     );
 };
