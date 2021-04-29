@@ -2,7 +2,7 @@ import React from 'react';
 import { ADD_MOVIE } from '../../constants';
 import { ResponseStructure } from '../../dto/response.dto';
 import { useNominationStore } from '../../store/nominationStore';
-import { Thumbnail } from './Thumbnail';
+import { Thumbnail } from './Thumbnail/Thumbnail';
 
 export type IFoundMovieProps = {
     movie: ResponseStructure;

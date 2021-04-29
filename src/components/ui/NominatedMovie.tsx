@@ -1,7 +1,7 @@
 import { REMOVE_MOVIE } from '../../constants';
 import { ResponseStructure } from '../../dto/response.dto';
 import { useNominationStore } from '../../store/nominationStore';
-import { Thumbnail } from './Thumbnail';
+import { Thumbnail } from './Thumbnail/Thumbnail';
 
 export type INominatedMovie = {
     nomination: ResponseStructure;
