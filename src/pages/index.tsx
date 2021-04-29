@@ -4,6 +4,7 @@ import { Main } from '../components/Main';
 import { Navbar } from '../components/ui/Navbar';
 
 const Index = () => (
+    // TODO: implement dark mode
     <>
         {/* <DarkModeSwitch /> */}
         <Navbar />

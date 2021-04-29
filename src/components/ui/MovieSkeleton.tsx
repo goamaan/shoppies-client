@@ -6,6 +6,9 @@ const MovieSkeleton: React.FC = () => {
     return (
         <MotionBox
             w="sm"
+            maxW="sm"
+            h="25vh"
+            maxH="30vh"
             rounded="lg"
             overflow="hidden"
             justifyContent="space-around"
