@@ -1,4 +1,4 @@
-import { VStack, StackDivider } from '@chakra-ui/react';
+import { VStack, StackDivider, HStack, Button, Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { MovieThumb } from './ui/MovieThumb';
 import { NominatedList } from './ui/NominatedList';
@@ -6,8 +6,9 @@ import { SearchBar } from './ui/SearchBar';
 import { useQuery } from 'react-query';
 import { API_URL, API_KEY } from '../config';
 import { ResopnseDto } from '../dto/response.dto';
+import { MovieSkeleton } from './ui/MovieSkeleton';
 
-const fetchMovies = async (searchTerm: string | undefined, page: number) => {
+const fetchMovies = async (searchTerm: string, page: number) => {
     const moviesEndpoint =
         searchTerm &&
         `${API_URL}/?s=${searchTerm}&page=${page}&apikey=${API_KEY}`;
@@ -19,55 +20,66 @@ const Main: React.FC = ({}) => {
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const {
-        data,
-        isFetching,
-        isError,
-        isLoading,
-        error,
-        isPreviousData,
-    } = useQuery<ResopnseDto, Error>(
+    const { data, isError, isLoading, isPreviousData, isFetching } = useQuery<
+        ResopnseDto,
+        Error
+    >(
         [`movies-${searchTerm}`, page],
-        () => fetchMovies(searchTerm, page),
-        { keepPreviousData: true },
+        () => fetchMovies(searchTerm.trim().toLowerCase(), page),
+        {
+            keepPreviousData: true,
+        },
     );
 
     return (
-        <VStack
-            divider={<StackDivider borderColor="blackAlpha.700" />}
-            spacing={2}
-            align="stretch"
-        >
-            <NominatedList />
+        <Flex direction="column" justifyContent="space-around" height="80vh">
+            {/* <NominatedList /> */}
+            <HStack>
+                {data && data.Search && (
+                    <React.Fragment>
+                        {data.Search.map(() => (
+                            <MovieSkeleton />
+                        ))}
+                    </React.Fragment>
+                )}
+            </HStack>
             <SearchBar setSearchTerm={setSearchTerm} />
             {isLoading && 'loading'}
-            {isError && 'error'}
-            {data && data.Search && (
-                <React.Fragment>
-                    {data.Search.map((movie) => (
-                        <MovieThumb movie={movie} />
-                    ))}
-                </React.Fragment>
-            )}
-            <button
+
+            <HStack>
+                {isLoading || isFetching
+                    ? Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
+                    : data &&
+                      data.Search && (
+                          <React.Fragment>
+                              {data.Search.map((movie) => (
+                                  <MovieThumb movie={movie} />
+                              ))}
+                          </React.Fragment>
+                      )}
+            </HStack>
+            {/* <Button
                 onClick={() => setPage((old) => Math.max(old - 1, 0))}
                 disabled={page === 1}
             >
                 Previous Page
-            </button>
+            </Button>
             {searchTerm && data && data.Search && (
-                <button
+                <Button
                     onClick={() => {
                         if (!isPreviousData && page <= 100) {
                             setPage((old) => old + 1);
                         }
                     }}
-                    disabled={isPreviousData || page > 100}
+                    disabled={
+                        data.Search.length < 10 || isPreviousData || page > 100
+                    }
+                    isLoading={isLoading}
                 >
-                    More movies
-                </button>
-            )}
-        </VStack>
+                    Next page
+                </Button>
+            )} */}
+        </Flex>
     );
 };
 

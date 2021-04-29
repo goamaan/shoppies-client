@@ -1,6 +1,7 @@
+import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Input } from '@chakra-ui/input';
-import { Center } from '@chakra-ui/layout';
 import { useEffect, useRef, useState } from 'react';
+import { MotionBox } from './MotionBox';
 
 // export type ISearchBarProps = {
 //     searchTerm: React.RefObject<HTMLInputElement>;
@@ -13,7 +14,7 @@ export type ISearchBarProps = {
 const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
     const [search, setSearch] = useState('');
     const initial = useRef(true);
-
+    const textColor = useColorModeValue('black', 'white');
     useEffect(() => {
         if (initial.current) {
             initial.current = false;
@@ -22,20 +23,25 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
 
         const timer = setTimeout(() => {
             setSearchTerm(search);
-        }, 500);
+        }, 750);
 
         return () => clearTimeout(timer);
     }, [setSearchTerm, search]);
 
     return (
-        <Center w="100vw" bg="green.500">
+        <MotionBox w="50vw" alignSelf="center">
             <Input
                 type="text"
                 textAlign="center"
                 onChange={(e) => setSearch(e.target.value)}
                 value={search}
+                placeholder="Search for a movie to nominate..."
+                variant="flushed"
+                // textColor={textColor}
+                color="shopify.200"
+                fontSize="2xl"
             />
-        </Center>
+        </MotionBox>
     );
 };
 
