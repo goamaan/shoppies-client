@@ -1,3 +1,4 @@
+import { REMOVE_MOVIE } from '../../constants';
 import { ResponseStructure } from '../../dto/response.dto';
 import { useNominationStore } from '../../store/nominationStore';
 import { Thumbnail } from './Thumbnail';
@@ -15,7 +16,7 @@ const NominatedMovie: React.FC<INominatedMovie> = ({ nomination }) => {
         <Thumbnail
             callback={removeNomination}
             movie={nomination}
-            type="remove"
+            type={REMOVE_MOVIE}
         />
     );
 };

@@ -1,6 +1,6 @@
-import { HStack, Button, Flex } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { MovieThumb } from './ui/MovieThumb';
+import { FoundMovie } from './ui/FoundMovie';
 import { NominatedMovie } from './ui/NominatedMovie';
 import { SearchBar } from './ui/SearchBar';
 import { useQuery } from 'react-query';
@@ -35,7 +35,7 @@ const Main: React.FC = ({}) => {
 
     return (
         <Flex direction="column" justifyContent="space-around" height="70vh">
-            <Flex justify="right" direction="row" flexBasis={5}>
+            <Flex direction="row" justify="center">
                 {nominations.map((nomination) => (
                     <NominatedMovie
                         key={nomination.imdbID}
@@ -44,8 +44,8 @@ const Main: React.FC = ({}) => {
                 ))}
             </Flex>
             <SearchBar setSearchTerm={setSearchTerm} />
-            <HStack>
-                {/* {searchTerm && data && data.Search && (
+            <Flex direction="row" flexBasis={5}>
+                {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
                         w="3vw"
@@ -54,18 +54,18 @@ const Main: React.FC = ({}) => {
                     >
                         {`⇦`}
                     </Button>
-                )} */}
+                )}
                 {isLoading || isFetching
                     ? Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
                     : data &&
                       data.Search && (
                           <React.Fragment>
                               {data.Search.map((movie) => (
-                                  <MovieThumb movie={movie} />
+                                  <FoundMovie movie={movie} />
                               ))}
                           </React.Fragment>
                       )}
-                {/* {searchTerm && data && data.Search && (
+                {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
                         w="3vw"
@@ -82,8 +82,8 @@ const Main: React.FC = ({}) => {
                     >
                         {`⇨`}
                     </Button>
-                )} */}
-            </HStack>
+                )}
+            </Flex>
         </Flex>
     );
 };

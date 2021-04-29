@@ -12,7 +12,10 @@ export const useNominationStore = create<INominations>(
         (set, get) => ({
             nominations: [],
             addNomination: (item) => {
-                if (!get().nominations.includes(item)) {
+                if (
+                    !get().nominations.includes(item) &&
+                    get().nominations.length < 5
+                ) {
                     set((state) => ({
                         nominations: state.nominations.concat(item),
                     }));

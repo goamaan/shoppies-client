@@ -5,7 +5,7 @@ import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient({
-    defaultOptions: { queries: { staleTime: 100000 } },
+    defaultOptions: { queries: { staleTime: 1000 * 60 * 10 } }, // cache valid for 10 minutes
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

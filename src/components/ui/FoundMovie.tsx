@@ -1,16 +1,19 @@
 import React from 'react';
+import { ADD_MOVIE } from '../../constants';
 import { ResponseStructure } from '../../dto/response.dto';
 import { useNominationStore } from '../../store/nominationStore';
 import { Thumbnail } from './Thumbnail';
 
-export type IMovieThumbProps = {
+export type IFoundMovieProps = {
     movie: ResponseStructure;
 };
 
-const MovieThumb: React.FC<IMovieThumbProps> = ({ movie }) => {
+const FoundMovie: React.FC<IFoundMovieProps> = ({ movie }) => {
     const addNomination = useNominationStore((state) => state.addNomination);
 
-    return <Thumbnail callback={addNomination} movie={movie} type="add" />;
+    return (
+        <Thumbnail callback={addNomination} movie={movie} type={ADD_MOVIE} />
+    );
 };
 
-export { MovieThumb };
+export { FoundMovie };
