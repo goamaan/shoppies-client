@@ -9,12 +9,15 @@ interface INominations extends State {
 
 export const useNominationStore = create<INominations>(
     persist(
-        (set) => ({
+        (set, get) => ({
             nominations: [],
-            addNomination: (item) =>
-                set((state) => ({
-                    nominations: state.nominations.concat(item),
-                })),
+            addNomination: (item) => {
+                if (!get().nominations.includes(item)) {
+                    set((state) => ({
+                        nominations: state.nominations.concat(item),
+                    }));
+                }
+            },
             removeNomination: (item) =>
                 set((state) => ({
                     nominations: state.nominations.filter(

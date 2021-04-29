@@ -23,7 +23,12 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
     }, [setSearchTerm, search]);
 
     return (
-        <MotionBox w="50vw" alignSelf="center">
+        <MotionBox
+            w="50vw"
+            alignSelf="center"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+        >
             <Input
                 type="text"
                 textAlign="center"

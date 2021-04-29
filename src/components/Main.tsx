@@ -35,17 +35,17 @@ const Main: React.FC = ({}) => {
 
     return (
         <Flex direction="column" justifyContent="space-around" height="70vh">
-            <HStack>
+            <Flex justify="right" direction="row" flexBasis={5}>
                 {nominations.map((nomination) => (
                     <NominatedMovie
                         key={nomination.imdbID}
                         nomination={nomination}
                     />
                 ))}
-            </HStack>
+            </Flex>
             <SearchBar setSearchTerm={setSearchTerm} />
             <HStack>
-                {searchTerm && data && data.Search && (
+                {/* {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
                         w="3vw"
@@ -54,7 +54,7 @@ const Main: React.FC = ({}) => {
                     >
                         {`⇦`}
                     </Button>
-                )}
+                )} */}
                 {isLoading || isFetching
                     ? Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
                     : data &&
@@ -65,7 +65,7 @@ const Main: React.FC = ({}) => {
                               ))}
                           </React.Fragment>
                       )}
-                {searchTerm && data && data.Search && (
+                {/* {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
                         w="3vw"
@@ -82,7 +82,7 @@ const Main: React.FC = ({}) => {
                     >
                         {`⇨`}
                     </Button>
-                )}
+                )} */}
             </HStack>
         </Flex>
     );
