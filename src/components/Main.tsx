@@ -10,10 +10,24 @@ import { Nominations } from './Nominations';
 import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
 
-const fetchMovies = async (searchTerm: string, page: number) => {
-    const moviesEndpoint =
-        searchTerm &&
-        `${API_URL}/?s=${searchTerm}&page=${page}&apikey=${API_KEY}`;
+const fetchMovies = async (
+    searchTerm: string,
+    page: number,
+    searchType: string,
+    searchYear: string,
+    anyYear: boolean,
+) => {
+    if (!searchTerm) {
+        return;
+    }
+    let moviesEndpoint;
+    if (anyYear) {
+        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&page=${page}&apikey=${API_KEY}`;
+    } else {
+        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&y=${searchYear}&page=${page}&apikey=${API_KEY}`;
+    }
+
+    console.log(moviesEndpoint);
 
     return moviesEndpoint && (await (await fetch(moviesEndpoint)).json());
 };
@@ -22,6 +36,9 @@ const Main: React.FC = ({}) => {
     const toast = useToast();
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchType, setSearchType] = useState('movie');
+    const [searchYear, setSearchYear] = useState('2020');
+    const [anyYear, setAnyYear] = useState(true);
     const nominations = useNominationStore((state) => state.nominations);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -29,8 +46,21 @@ const Main: React.FC = ({}) => {
         ResponseDto,
         Error
     >(
-        [`movies-${searchTerm}`, page],
-        () => fetchMovies(searchTerm.trim().toLowerCase(), page),
+        [
+            `movies-${searchTerm}-${searchYear}-${anyYear}`,
+            page,
+            searchType,
+            searchYear,
+            anyYear,
+        ],
+        () =>
+            fetchMovies(
+                searchTerm.trim().toLowerCase(),
+                page,
+                searchType,
+                searchYear,
+                anyYear,
+            ),
         {
             keepPreviousData: true,
         },
@@ -61,7 +91,12 @@ const Main: React.FC = ({}) => {
                 height="70vh"
             >
                 <Nominations nominations={nominations} />
-                <SearchBar setSearchTerm={setSearchTerm} />
+                <SearchBar
+                    setSearchTerm={setSearchTerm}
+                    setSearchType={setSearchType}
+                    setSearchYear={setSearchYear}
+                    setAnyYear={setAnyYear}
+                />
                 <Flex direction="row" flexBasis={5} justifyContent="center">
                     <CompleteBanner isOpen={isOpen} />
                 </Flex>
@@ -72,7 +107,12 @@ const Main: React.FC = ({}) => {
     return (
         <Flex direction="column" justifyContent="space-around" height="70vh">
             <Nominations nominations={nominations} />
-            <SearchBar setSearchTerm={setSearchTerm} />
+            <SearchBar
+                setSearchTerm={setSearchTerm}
+                setSearchType={setSearchType}
+                setSearchYear={setSearchYear}
+                setAnyYear={setAnyYear}
+            />
             <Flex direction="row" flexBasis={5} justifyContent="center">
                 {searchTerm && data && data.Search && (
                     <Button

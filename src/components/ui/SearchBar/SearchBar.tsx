@@ -5,11 +5,20 @@ import { SearchFilter } from './SearchFilter';
 
 export type ISearchBarProps = {
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+    setSearchType: React.Dispatch<React.SetStateAction<string>>;
+    setSearchYear: React.Dispatch<React.SetStateAction<string>>;
+    setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({
+    setSearchTerm,
+    setAnyYear,
+    setSearchType,
+    setSearchYear,
+}) => {
     const [search, setSearch] = useState('');
     const initial = useRef(true);
+
     useEffect(() => {
         if (initial.current) {
             initial.current = false;
@@ -38,12 +47,17 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
                 onChange={(e) => setSearch(e.target.value)}
                 value={search}
                 placeholder="Search for a movie to nominate..."
-                variant="flushed"
+                variant="filled"
+                p="1.2vw"
                 color="shopify.200"
                 zIndex={2}
                 fontSize="2xl"
             />
-            <SearchFilter />
+            <SearchFilter
+                setSearchType={setSearchType}
+                setSearchYear={setSearchYear}
+                setAnyYear={setAnyYear}
+            />
         </MotionBox>
     );
 };

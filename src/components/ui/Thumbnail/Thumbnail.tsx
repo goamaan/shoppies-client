@@ -21,7 +21,7 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
 }) => {
     const [showButton, setShowButton] = useState(false);
     const isAdd = type === 'add';
-    const label = isAdd ? 'Nominate Movie' : 'Remove Nomination';
+    const label = isAdd ? 'Nominate item' : 'Remove Nomination';
     const icon = isAdd ? (
         <CheckCircleIcon color="white" />
     ) : (
