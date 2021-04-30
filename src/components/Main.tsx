@@ -1,13 +1,14 @@
-import { Flex, Button } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { FoundMovie } from './ui/FoundMovie';
-import { NominatedMovie } from './ui/NominatedMovie';
+import { Flex, Button, useToast, useDisclosure } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { SearchBar } from './ui/SearchBar';
 import { useQuery } from 'react-query';
 import { API_URL, API_KEY } from '../config';
-import { ResopnseDto } from '../dto/response.dto';
+import { ResponseDto } from '../dto/response.dto';
 import { MovieSkeleton } from './ui/MovieSkeleton';
 import { useNominationStore } from '../store/nominationStore';
+import { Nominations } from './Nominations';
+import { FetchedMovies } from './FetchedMovies';
+import { CompleteBanner } from './ui/CompleteBanner';
 
 const fetchMovies = async (searchTerm: string, page: number) => {
     const moviesEndpoint =
@@ -18,12 +19,14 @@ const fetchMovies = async (searchTerm: string, page: number) => {
 };
 
 const Main: React.FC = ({}) => {
+    const toast = useToast();
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const nominations = useNominationStore((state) => state.nominations);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { data, isLoading, isPreviousData, isFetching } = useQuery<
-        ResopnseDto,
+        ResponseDto,
         Error
     >(
         [`movies-${searchTerm}`, page],
@@ -33,18 +36,44 @@ const Main: React.FC = ({}) => {
         },
     );
 
+    useEffect(() => {
+        if (nominations.length === 5) {
+            toast({
+                title: "You've nominated 5 movies!",
+                description:
+                    'Get a shareable link to share it with your friends!',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: 'top',
+            });
+            onOpen();
+        } else {
+            onClose();
+        }
+    }, [nominations, isOpen]);
+
+    if (isOpen) {
+        return (
+            <Flex
+                direction="column"
+                justifyContent="space-around"
+                height="70vh"
+            >
+                <Nominations nominations={nominations} />
+                <SearchBar setSearchTerm={setSearchTerm} />
+                <Flex direction="row" flexBasis={5} justifyContent="center">
+                    <CompleteBanner isOpen={isOpen} />
+                </Flex>
+            </Flex>
+        );
+    }
+
     return (
         <Flex direction="column" justifyContent="space-around" height="70vh">
-            <Flex direction="row" justify="center">
-                {nominations.map((nomination) => (
-                    <NominatedMovie
-                        key={nomination.imdbID}
-                        nomination={nomination}
-                    />
-                ))}
-            </Flex>
+            <Nominations nominations={nominations} />
             <SearchBar setSearchTerm={setSearchTerm} />
-            <Flex direction="row" flexBasis={5}>
+            <Flex direction="row" flexBasis={5} justifyContent="center">
                 {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
@@ -55,16 +84,11 @@ const Main: React.FC = ({}) => {
                         {`⇦`}
                     </Button>
                 )}
-                {isLoading || isFetching
-                    ? Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
-                    : data &&
-                      data.Search && (
-                          <React.Fragment>
-                              {data.Search.map((movie) => (
-                                  <FoundMovie movie={movie} />
-                              ))}
-                          </React.Fragment>
-                      )}
+                {isLoading || isFetching ? (
+                    Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
+                ) : (
+                    <FetchedMovies data={data} />
+                )}
                 {searchTerm && data && data.Search && (
                     <Button
                         h="25vh"
@@ -77,7 +101,7 @@ const Main: React.FC = ({}) => {
                         disabled={
                             data.Search.length < 10 ||
                             isPreviousData ||
-                            page > 100
+                            page >= 100
                         }
                     >
                         {`⇨`}

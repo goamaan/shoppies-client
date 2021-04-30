@@ -1,4 +1,4 @@
-export interface ResopnseDto {
+export interface ResponseDto {
     Search: ResponseStructure[];
 }
 

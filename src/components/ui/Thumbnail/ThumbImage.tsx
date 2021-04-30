@@ -1,4 +1,4 @@
-import { Tooltip, Box, Image } from '@chakra-ui/react';
+import { Tooltip, Box, Image, ScaleFade } from '@chakra-ui/react';
 import React from 'react';
 import { ResponseStructure } from '../../../dto/response.dto';
 

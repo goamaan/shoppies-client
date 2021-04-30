@@ -10,9 +10,18 @@ export type IFoundMovieProps = {
 
 const FoundMovie: React.FC<IFoundMovieProps> = ({ movie }) => {
     const addNomination = useNominationStore((state) => state.addNomination);
+    const nominations = useNominationStore((state) => state.nominations);
+    const alreadyAdded = nominations.some(
+        (curr) => curr.imdbID === movie.imdbID,
+    );
 
     return (
-        <Thumbnail callback={addNomination} movie={movie} type={ADD_MOVIE} />
+        <Thumbnail
+            callback={addNomination}
+            movie={movie}
+            type={ADD_MOVIE}
+            alreadyAdded={alreadyAdded}
+        />
     );
 };
 
