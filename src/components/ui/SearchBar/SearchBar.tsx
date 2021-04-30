@@ -1,6 +1,7 @@
 import { Input } from '@chakra-ui/input';
 import { useEffect, useRef, useState } from 'react';
-import { MotionBox } from './MotionBox';
+import { MotionBox } from '../MotionBox';
+import { SearchFilter } from './SearchFilter';
 
 export type ISearchBarProps = {
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -28,6 +29,8 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
             alignSelf="center"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            display="flex"
+            justifyContent="space-between"
         >
             <Input
                 type="text"
@@ -36,11 +39,11 @@ const SearchBar: React.FC<ISearchBarProps> = ({ setSearchTerm }) => {
                 value={search}
                 placeholder="Search for a movie to nominate..."
                 variant="flushed"
-                // textColor={textColor}
                 color="shopify.200"
                 zIndex={2}
                 fontSize="2xl"
             />
+            <SearchFilter />
         </MotionBox>
     );
 };

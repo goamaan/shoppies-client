@@ -1,6 +1,6 @@
 import { Flex, Button, useToast, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { SearchBar } from './ui/SearchBar';
+import { SearchBar } from './ui/SearchBar/SearchBar';
 import { useQuery } from 'react-query';
 import { API_URL, API_KEY } from '../config';
 import { ResponseDto } from '../dto/response.dto';
