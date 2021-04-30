@@ -2,35 +2,13 @@ import { Flex, Button, useToast, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from './ui/SearchBar/SearchBar';
 import { useQuery } from 'react-query';
-import { API_URL, API_KEY } from '../config';
 import { ResponseDto } from '../dto/response.dto';
 import { MovieSkeleton } from './ui/MovieSkeleton';
 import { useNominationStore } from '../store/nominationStore';
 import { Nominations } from './Nominations';
 import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
-
-const fetchMovies = async (
-    searchTerm: string,
-    page: number,
-    searchType: string,
-    searchYear: string,
-    anyYear: boolean,
-) => {
-    if (!searchTerm) {
-        return;
-    }
-    let moviesEndpoint;
-    if (anyYear) {
-        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&page=${page}&apikey=${API_KEY}`;
-    } else {
-        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&y=${searchYear}&page=${page}&apikey=${API_KEY}`;
-    }
-
-    console.log(moviesEndpoint);
-
-    return moviesEndpoint && (await (await fetch(moviesEndpoint)).json());
-};
+import { fetchMovies } from '../api-fetch';
 
 const Main: React.FC = ({}) => {
     const toast = useToast();
@@ -40,7 +18,8 @@ const Main: React.FC = ({}) => {
     const [searchYear, setSearchYear] = useState('2020');
     const [anyYear, setAnyYear] = useState(true);
     const nominations = useNominationStore((state) => state.nominations);
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isBannerOpen, onOpen, onClose } = useDisclosure();
+    const toastId = 'nomination-toast';
 
     const { data, isLoading, isPreviousData, isFetching } = useQuery<
         ResponseDto,
@@ -67,23 +46,25 @@ const Main: React.FC = ({}) => {
     );
 
     useEffect(() => {
-        if (nominations.length === 5) {
-            toast({
-                title: "You've nominated 5 movies!",
-                description:
-                    'Get a shareable link to share it with your friends!',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'top',
-            });
-            onOpen();
-        } else {
-            onClose();
+        if (!toast.isActive(toastId)) {
+            if (nominations.length === 5) {
+                toast({
+                    title: "You've nominated 5 movies!",
+                    description:
+                        'Get a shareable link to share it with your friends!',
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                    position: 'top',
+                });
+                onOpen();
+            } else {
+                onClose();
+            }
         }
-    }, [nominations, isOpen]);
+    }, [nominations]);
 
-    if (isOpen) {
+    if (isBannerOpen) {
         return (
             <Flex
                 direction="column"
@@ -98,7 +79,7 @@ const Main: React.FC = ({}) => {
                     setAnyYear={setAnyYear}
                 />
                 <Flex direction="row" flexBasis={5} justifyContent="center">
-                    <CompleteBanner isOpen={isOpen} />
+                    <CompleteBanner isOpen={isBannerOpen} />
                 </Flex>
             </Flex>
         );
@@ -125,7 +106,9 @@ const Main: React.FC = ({}) => {
                     </Button>
                 )}
                 {isLoading || isFetching ? (
-                    Array.apply(null, Array(10)).map(() => <MovieSkeleton />)
+                    Array.apply(null, Array(10)).map((_, i) => (
+                        <MovieSkeleton key={i} />
+                    ))
                 ) : (
                     <FetchedMovies data={data} />
                 )}

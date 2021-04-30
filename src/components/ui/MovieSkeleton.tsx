@@ -7,15 +7,17 @@ const MovieSkeleton: React.FC = () => {
         <MotionBox
             w="sm"
             maxW="sm"
-            h="25vh"
-            maxH="30vh"
-            rounded="lg"
-            overflow="hidden"
+            px="1vw"
             justifyContent="space-around"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
         >
-            <Skeleton h="30vh"></Skeleton>
+            <Skeleton
+                h="25vh"
+                rounded="2xl"
+                startColor="pink.500"
+                endColor="orange.500"
+            ></Skeleton>
         </MotionBox>
     );
 };

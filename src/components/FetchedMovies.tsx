@@ -12,7 +12,7 @@ const FetchedMovies: React.FC<IFetchedMoviesProps> = ({ data }) => {
             {data && data.Search && (
                 <React.Fragment>
                     {data.Search.map((movie) => (
-                        <FoundMovie movie={movie} />
+                        <FoundMovie key={movie.imdbID} movie={movie} />
                     ))}
                 </React.Fragment>
             )}

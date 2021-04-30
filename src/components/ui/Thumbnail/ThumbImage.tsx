@@ -1,4 +1,4 @@
-import { Tooltip, Box, Image, ScaleFade } from '@chakra-ui/react';
+import { Tooltip, Box, Image } from '@chakra-ui/react';
 import React from 'react';
 import { ResponseStructure } from '../../../dto/response.dto';
 
@@ -11,10 +11,10 @@ const ThumbImage: React.FC<IThumbImageProps> = ({ movie }) => {
         <>
             {movie.Poster ? (
                 <Tooltip
-                    label={movie.Title}
+                    label={`${movie.Title} - ${movie.Year}`}
                     placement="top"
                     fontSize="lg"
-                    fontWeight="bold"
+                    fontWeight="semibold"
                     color="#008060"
                     hasArrow
                     background="#fbf7ed"

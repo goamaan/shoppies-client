@@ -40,18 +40,20 @@ const SearchBar: React.FC<ISearchBarProps> = ({
             animate={{ scale: 1 }}
             display="flex"
             justifyContent="space-between"
+            alignItems="center"
         >
             <Input
                 type="text"
                 textAlign="center"
                 onChange={(e) => setSearch(e.target.value)}
                 value={search}
-                placeholder="Search for a movie to nominate..."
+                placeholder="Search for a movie/series to nominate..."
                 variant="filled"
                 p="1.2vw"
                 color="shopify.200"
                 zIndex={2}
                 fontSize="2xl"
+                focusBorderColor="shopify.200"
             />
             <SearchFilter
                 setSearchType={setSearchType}

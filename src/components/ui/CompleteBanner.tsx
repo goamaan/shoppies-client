@@ -11,15 +11,16 @@ const CompleteBanner: React.FC<ICompleteBannerProps> = ({ isOpen }) => {
         <ScaleFade initialScale={0.9} in={isOpen}>
             <MotionBox
                 p="40px"
-                color="white"
+                color="shopify.400"
                 mt="4"
                 rounded="md"
                 shadow="md"
                 fontSize="4xl"
+                fontWeight="thin"
                 overflow="hidden"
                 justifyContent="space-around"
             >
-                You have made the maximum of nominations!
+                Remove nominations to choose more
             </MotionBox>
         </ScaleFade>
     );

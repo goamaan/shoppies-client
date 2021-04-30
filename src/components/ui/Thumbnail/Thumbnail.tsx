@@ -42,40 +42,37 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
                 animate={{ scale: 1 }}
                 whileHover={{ scale: 1.2 }}
                 flexBasis="10%"
+                onHoverStart={() => setShowButton(true)}
+                onHoverEnd={() => setShowButton(false)}
             >
-                <MotionBox
-                    onHoverStart={() => setShowButton(true)}
-                    onHoverEnd={() => setShowButton(false)}
+                <Box
+                    m="4"
+                    rounded="lg"
+                    h="100%"
+                    alignItems="center"
+                    opacity="1"
                 >
-                    <Box
-                        m="4"
-                        rounded="lg"
-                        h="100%"
-                        alignItems="center"
-                        opacity="1"
-                    >
-                        {movie.Poster ? (
-                            <Tooltip
-                                label="Already nominated!"
-                                placement="top"
-                                color="white"
-                                hasArrow
-                                background="blackAlpha.500"
-                            >
-                                <Image
-                                    alt={movie.Title}
-                                    w="100%"
-                                    src={movie.Poster}
-                                    rounded="2xl"
-                                    transition="opacity 0.4s, transform 0.4s"
-                                    _hover={{ opacity: '0.3' }}
-                                />
-                            </Tooltip>
-                        ) : (
-                            <Box bg="gray.200" h="100%" />
-                        )}
-                    </Box>
-                </MotionBox>
+                    {movie.Poster ? (
+                        <Tooltip
+                            label="Already nominated!"
+                            placement="top"
+                            color="white"
+                            hasArrow
+                            background="blackAlpha.500"
+                        >
+                            <Image
+                                alt={movie.Title}
+                                w="100%"
+                                src={movie.Poster}
+                                rounded="2xl"
+                                transition="opacity 0.4s, transform 0.4s"
+                                _hover={{ opacity: '0.3' }}
+                            />
+                        </Tooltip>
+                    ) : (
+                        <Box bg="gray.200" h="100%" />
+                    )}
+                </Box>
             </MotionBox>
         );
     }
@@ -93,11 +90,10 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
             animate={{ scale: 1 }}
             whileHover={{ scale: 1.2 }}
             flexBasis="10%"
+            onHoverStart={() => setShowButton(true)}
+            onHoverEnd={() => setShowButton(false)}
         >
-            <MotionBox
-                onHoverStart={() => setShowButton(true)}
-                onHoverEnd={() => setShowButton(false)}
-            >
+            <MotionBox>
                 <Box
                     m="4"
                     rounded="lg"

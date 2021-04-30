@@ -53,7 +53,12 @@ const SearchFilter: React.FC<ISearchFilterProps> = ({
             <PopoverTrigger>
                 <Button mx="1vw">Filter</Button>
             </PopoverTrigger>
-            <PopoverContent p={4} bg="shopify.600">
+
+            <PopoverContent
+                p={4}
+                bg="shopify.600"
+                focusBorderColor="shopify.200"
+            >
                 <FormControl as="fieldset">
                     <FormLabel as="legend">Item to search</FormLabel>
                     <RadioGroup
