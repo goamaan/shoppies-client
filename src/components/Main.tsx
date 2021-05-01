@@ -10,6 +10,7 @@ import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
 import { fetchMovies } from '../api-fetch';
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
+
 const Main: React.FC = ({}) => {
     const toast = useToast();
     const [page, setPage] = useState(1);
@@ -103,7 +104,7 @@ const Main: React.FC = ({}) => {
                 direction="row"
                 flexBasis="30vh"
                 justifyContent="center"
-                pt="10vh"
+                pt="4vh"
             >
                 {searchTerm && data && data.Search && (
                     <IconButton
