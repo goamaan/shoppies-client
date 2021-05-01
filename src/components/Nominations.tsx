@@ -10,17 +10,20 @@ export type INominationsProps = {
 
 const Nominations: React.FC<INominationsProps> = ({ nominations }) => {
     return (
-        <Flex direction="row" justify="center" flexBasis="30vh">
+        <Flex
+            direction="row"
+            justifyContent="center"
+            flexDir="row"
+            overflowX="auto"
+            overflowY="hidden"
+        >
             {nominations.length === 0 ? (
                 <MotionBox
-                    p="40px"
                     color="bg.500"
-                    mt="4"
                     rounded="md"
-                    fontSize="5xl"
+                    fontSize={['xl', '2xl', '3xl', '5xl']}
                     fontWeight="thin"
-                    overflow="hidden"
-                    justifyContent="space-around"
+                    py="2vh"
                 >
                     Your nominees will appear here
                 </MotionBox>

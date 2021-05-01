@@ -34,7 +34,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({
     }, [setSearchTerm, search]);
 
     return (
-        <Flex direction="column" alignItems="center">
+        <Flex direction="column" alignItems="center" mt="4vh">
             <MotionBox
                 w="50vw"
                 alignSelf="center"
@@ -49,13 +49,14 @@ const SearchBar: React.FC<ISearchBarProps> = ({
                     textAlign="center"
                     onChange={(e) => setSearch(e.target.value)}
                     value={search}
-                    placeholder="Search for a movie/series to nominate..."
+                    placeholder="Search for a movie/series..."
+                    _placeholder={{ fontSize: ['xs', 'xl'] }}
                     variant="filled"
                     p="1.2vw"
                     bg="blackAlpha.400"
                     color="shopify.200"
                     zIndex={2}
-                    fontSize="2xl"
+                    fontSize={['lg', 'xl']}
                     focusBorderColor="shopify.200"
                 />
                 <SearchFilter
@@ -64,7 +65,12 @@ const SearchBar: React.FC<ISearchBarProps> = ({
                     setAnyYear={setAnyYear}
                 />
             </MotionBox>
-            <Text p="3vh" color="bg.300" fontSize="1.5em" fontWeight="hairline">
+            <Text
+                p="3vh"
+                color="bg.300"
+                fontSize={['1em', '1.5em']}
+                fontWeight="hairline"
+            >
                 Hover over movies to see details
             </Text>
         </Flex>

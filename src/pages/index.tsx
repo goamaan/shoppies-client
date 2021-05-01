@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { Main } from '../components/Main';
 import { Navbar } from '../components/ui/Navbar';
 import Head from 'next/head';
@@ -20,12 +20,18 @@ const Index = () => (
                 content="initial-scale=1.0, width=device-width"
             />
         </Head>
-        <Box bgGradient="linear(to-b,shopify.900,bg.700,shopify.500)">
+        <Flex
+            bgGradient="linear(to-b,shopify.900,bg.700,shopify.500)"
+            flexDir="column"
+            minHeight="100%"
+            minWidth="100%"
+            height={['110vh', '100vh']}
+        >
             <Navbar />
-            <Flex direction="column" mt="10vh" h="80vh">
+            <Flex direction="column">
                 <Main />
             </Flex>
-        </Box>
+        </Flex>
     </>
 );
 

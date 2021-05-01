@@ -28,90 +28,58 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
         <DeleteIcon color="white" />
     );
 
-    if (type === 'add' && alreadyAdded) {
-        return (
-            <MotionBox
-                w="sm"
-                maxW="sm"
-                h="25vh"
-                maxH="30vh"
-                rounded="md"
-                overflow="hidden"
-                justifyContent="space-around"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 1.2 }}
-                flexBasis="10%"
-                onHoverStart={() => setShowButton(true)}
-                onHoverEnd={() => setShowButton(false)}
-            >
-                <Box
-                    m="4"
-                    rounded="lg"
-                    h="100%"
-                    alignItems="center"
-                    opacity="1"
-                >
-                    {movie.Poster ? (
-                        <Tooltip
-                            label="Already nominated!"
-                            placement="top"
-                            color="white"
-                            hasArrow
-                            background="blackAlpha.500"
-                        >
-                            <Image
-                                alt={movie.Title}
-                                w="100%"
-                                src={movie.Poster}
-                                rounded="2xl"
-                                transition="opacity 0.4s, transform 0.4s"
-                                _hover={{ opacity: '0.3' }}
-                            />
-                        </Tooltip>
-                    ) : (
-                        <Box bg="gray.200" h="100%" />
-                    )}
-                </Box>
-            </MotionBox>
+    const HeroContent =
+        type === 'add' && alreadyAdded ? (
+            <>
+                {movie.Poster ? (
+                    <Tooltip
+                        label="Already nominated!"
+                        placement="top"
+                        color="white"
+                        hasArrow
+                        background="blackAlpha.500"
+                    >
+                        <Image
+                            alt={movie.Title}
+                            src={movie.Poster}
+                            rounded="2xl"
+                            transition="opacity 0.4s, transform 0.4s"
+                            _hover={{ opacity: '0.3' }}
+                        />
+                    </Tooltip>
+                ) : (
+                    <Box bg="gray.200" />
+                )}
+            </>
+        ) : (
+            <>
+                <ThumbImage movie={movie} />
+                <ThumbButton
+                    movie={movie}
+                    callback={callback}
+                    label={label}
+                    showButton={showButton}
+                    Icon={icon}
+                    isAdd={isAdd}
+                />
+            </>
         );
-    }
 
     return (
         <MotionBox
-            w="sm"
-            maxW="sm"
-            h="25vh"
-            maxH="30vh"
             rounded="md"
-            overflow="hidden"
-            justifyContent="space-around"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             whileHover={{ scale: 1.2 }}
-            flexBasis="10%"
             onHoverStart={() => setShowButton(true)}
             onHoverEnd={() => setShowButton(false)}
+            maxW={['25vw', '30vw', '25vw', '12em']}
+            minW={['25vw', '20vw', '15vw', '8em']}
+            minH={['20vh', '20vh', '15vh', '8em']}
         >
-            <MotionBox>
-                <Box
-                    m="4"
-                    rounded="lg"
-                    h="100%"
-                    alignItems="center"
-                    opacity="1"
-                >
-                    <ThumbImage movie={movie} />
-                    <ThumbButton
-                        movie={movie}
-                        callback={callback}
-                        label={label}
-                        showButton={showButton}
-                        Icon={icon}
-                        isAdd={isAdd}
-                    />
-                </Box>
-            </MotionBox>
+            <Box m="4" rounded="lg" alignItems="center" opacity="1">
+                {HeroContent}
+            </Box>
         </MotionBox>
     );
 };

@@ -1,4 +1,4 @@
-import { Flex, useToast, useDisclosure, IconButton } from '@chakra-ui/react';
+import { Flex, useToast, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from './ui/SearchBar/SearchBar';
 import { useQuery } from 'react-query';
@@ -9,7 +9,7 @@ import { Nominations } from './Nominations';
 import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
 import { fetchMovies } from '../api-fetch';
-import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
+import { PageButtons } from './ui/PageButtons';
 
 const Main: React.FC = ({}) => {
     const toast = useToast();
@@ -65,62 +65,29 @@ const Main: React.FC = ({}) => {
         }
     }, [nominations]);
 
-    if (isBannerOpen) {
-        return (
-            <Flex
-                direction="column"
-                justifyContent="space-around"
-                flexBasis="auto"
+    const HeroContent = isBannerOpen ? (
+        <Flex
+            flexDir="row"
+            overflowX="auto"
+            overflowY="hidden"
+            justifyContent="center"
+        >
+            <CompleteBanner isOpen={isBannerOpen} />
+        </Flex>
+    ) : (
+        <Flex
+            direction="row"
+            justifyContent="space-between"
+            mt="4vh"
+            flexBasis="35vh"
+        >
+            <PageButtons
+                isPreviousData={isPreviousData}
+                page={page}
+                searchTerm={searchTerm}
+                setPage={setPage}
+                data={data}
             >
-                <Nominations nominations={nominations} />
-                <SearchBar
-                    setSearchTerm={setSearchTerm}
-                    setSearchType={setSearchType}
-                    setSearchYear={setSearchYear}
-                    setAnyYear={setAnyYear}
-                />
-                <Flex
-                    direction="row"
-                    flexBasis="30vh"
-                    justifyContent="center"
-                    pt="10vh"
-                >
-                    <CompleteBanner isOpen={isBannerOpen} />
-                </Flex>
-            </Flex>
-        );
-    }
-
-    return (
-        <Flex direction="column" justifyContent="space-around" flexBasis="auto">
-            <Nominations nominations={nominations} />
-            <SearchBar
-                setSearchTerm={setSearchTerm}
-                setSearchType={setSearchType}
-                setSearchYear={setSearchYear}
-                setAnyYear={setAnyYear}
-            />
-            <Flex
-                direction="row"
-                flexBasis="30vh"
-                justifyContent="center"
-                pt="4vh"
-            >
-                {searchTerm && data && data.Search && (
-                    <IconButton
-                        h="25vh"
-                        w="3vw"
-                        onClick={() => setPage((old) => Math.max(old - 1, 0))}
-                        disabled={page === 1}
-                        bg="blackAlpha.500"
-                        _hover={{ bg: 'blackAlpha.600' }}
-                        icon={<ArrowBackIcon />}
-                        aria-label={`Next page`}
-                        size="lg"
-                    >
-                        {`⇦`}
-                    </IconButton>
-                )}
                 {isLoading || isFetching ? (
                     Array.apply(null, Array(10)).map((_, i) => (
                         <MovieSkeleton key={i} />
@@ -128,30 +95,28 @@ const Main: React.FC = ({}) => {
                 ) : (
                     <FetchedMovies data={data} />
                 )}
-                {searchTerm && data && data.Search && (
-                    <IconButton
-                        h="25vh"
-                        w="3vw"
-                        onClick={() => {
-                            if (!isPreviousData && page <= 100) {
-                                setPage((old) => old + 1);
-                            }
-                        }}
-                        disabled={
-                            data.Search.length < 10 ||
-                            isPreviousData ||
-                            page >= 100
-                        }
-                        bg="blackAlpha.500"
-                        _hover={{ bg: 'blackAlpha.600' }}
-                        icon={<ArrowForwardIcon />}
-                        size="lg"
-                        aria-label={`Next page`}
-                    >
-                        {`⇨`}
-                    </IconButton>
-                )}
+            </PageButtons>
+        </Flex>
+    );
+
+    return (
+        <Flex direction="column" justifyContent="space-between">
+            <Flex
+                direction="row"
+                justifyContent="center"
+                pt="4vh"
+                alignItems="center"
+                flexBasis="30vh"
+            >
+                <Nominations nominations={nominations} />
             </Flex>
+            <SearchBar
+                setSearchTerm={setSearchTerm}
+                setSearchType={setSearchType}
+                setSearchYear={setSearchYear}
+                setAnyYear={setAnyYear}
+            />
+            {HeroContent}
         </Flex>
     );
 };

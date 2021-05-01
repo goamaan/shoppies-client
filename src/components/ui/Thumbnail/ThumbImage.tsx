@@ -21,7 +21,6 @@ const ThumbImage: React.FC<IThumbImageProps> = ({ movie }) => {
                 >
                     <Image
                         alt={movie.Title}
-                        w="100%"
                         src={movie.Poster}
                         rounded="2xl"
                         transition="opacity 0.4s, transform 0.4s"
@@ -29,7 +28,7 @@ const ThumbImage: React.FC<IThumbImageProps> = ({ movie }) => {
                     />
                 </Tooltip>
             ) : (
-                <Box bg="gray.200" h="100%" />
+                <Box bg="gray.200" />
             )}
         </>
     );

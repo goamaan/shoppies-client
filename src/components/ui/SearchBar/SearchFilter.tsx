@@ -50,17 +50,18 @@ const SearchFilter: React.FC<ISearchFilterProps> = ({
     }, [setAnyYear, setSearchType, setSearchYear, any, radioValue, year]);
 
     return (
-        <Popover closeOnBlur={true} placement="right" initialFocusRef={initRef}>
+        <Popover
+            closeOnBlur={true}
+            placement="top-start"
+            initialFocusRef={initRef}
+            size="md"
+        >
             <PopoverTrigger>
-                <Button mx="1vw" bg="blackAlpha.400">
+                <Button mx="1vw" bg="blackAlpha.400" fontSize={['sm', 'md']}>
                     Filter
                 </Button>
             </PopoverTrigger>
-            <PopoverContent
-                p={4}
-                bg="blackAlpha.300"
-                outlineColor="shopify.300"
-            >
+            <PopoverContent p={4} bg="blackAlpha.900">
                 <FormControl as="fieldset">
                     <FormLabel as="legend">Item to search</FormLabel>
                     <RadioGroup
