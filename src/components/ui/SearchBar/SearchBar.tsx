@@ -50,6 +50,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({
                 placeholder="Search for a movie/series to nominate..."
                 variant="filled"
                 p="1.2vw"
+                bg="blackAlpha.400"
                 color="shopify.200"
                 zIndex={2}
                 fontSize="2xl"

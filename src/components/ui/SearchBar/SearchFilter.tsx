@@ -32,6 +32,7 @@ const SearchFilter: React.FC<ISearchFilterProps> = ({
     const [radioValue, setRadioValue] = useState('movie');
     const [year, setYear] = useState('2020');
     const initial = useRef(true);
+    const initRef = React.useRef(null);
 
     useEffect(() => {
         if (initial.current) {
@@ -49,15 +50,16 @@ const SearchFilter: React.FC<ISearchFilterProps> = ({
     }, [setAnyYear, setSearchType, setSearchYear, any, radioValue, year]);
 
     return (
-        <Popover closeOnBlur={true} placement="right">
+        <Popover closeOnBlur={true} placement="right" initialFocusRef={initRef}>
             <PopoverTrigger>
-                <Button mx="1vw">Filter</Button>
+                <Button mx="1vw" bg="blackAlpha.400">
+                    Filter
+                </Button>
             </PopoverTrigger>
-
             <PopoverContent
                 p={4}
-                bg="shopify.600"
-                focusBorderColor="shopify.200"
+                bg="blackAlpha.300"
+                outlineColor="shopify.300"
             >
                 <FormControl as="fieldset">
                     <FormLabel as="legend">Item to search</FormLabel>
@@ -67,7 +69,9 @@ const SearchFilter: React.FC<ISearchFilterProps> = ({
                         onChange={setRadioValue}
                     >
                         <HStack spacing="24px">
-                            <Radio value="movie">Movies</Radio>
+                            <Radio value="movie" ref={initRef}>
+                                Movies
+                            </Radio>
                             <Radio value="series">Series</Radio>
                         </HStack>
                     </RadioGroup>

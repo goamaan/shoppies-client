@@ -1,4 +1,4 @@
-import { Flex, Button, useToast, useDisclosure } from '@chakra-ui/react';
+import { Flex, useToast, useDisclosure, IconButton } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from './ui/SearchBar/SearchBar';
 import { useQuery } from 'react-query';
@@ -9,7 +9,7 @@ import { Nominations } from './Nominations';
 import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
 import { fetchMovies } from '../api-fetch';
-
+import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons';
 const Main: React.FC = ({}) => {
     const toast = useToast();
     const [page, setPage] = useState(1);
@@ -69,7 +69,7 @@ const Main: React.FC = ({}) => {
             <Flex
                 direction="column"
                 justifyContent="space-around"
-                height="70vh"
+                flexBasis="auto"
             >
                 <Nominations nominations={nominations} />
                 <SearchBar
@@ -78,7 +78,12 @@ const Main: React.FC = ({}) => {
                     setSearchYear={setSearchYear}
                     setAnyYear={setAnyYear}
                 />
-                <Flex direction="row" flexBasis={5} justifyContent="center">
+                <Flex
+                    direction="row"
+                    flexBasis="30vh"
+                    justifyContent="center"
+                    pt="10vh"
+                >
                     <CompleteBanner isOpen={isBannerOpen} />
                 </Flex>
             </Flex>
@@ -86,7 +91,7 @@ const Main: React.FC = ({}) => {
     }
 
     return (
-        <Flex direction="column" justifyContent="space-around" height="70vh">
+        <Flex direction="column" justifyContent="space-around" flexBasis="auto">
             <Nominations nominations={nominations} />
             <SearchBar
                 setSearchTerm={setSearchTerm}
@@ -94,16 +99,26 @@ const Main: React.FC = ({}) => {
                 setSearchYear={setSearchYear}
                 setAnyYear={setAnyYear}
             />
-            <Flex direction="row" flexBasis={5} justifyContent="center">
+            <Flex
+                direction="row"
+                flexBasis="30vh"
+                justifyContent="center"
+                pt="10vh"
+            >
                 {searchTerm && data && data.Search && (
-                    <Button
+                    <IconButton
                         h="25vh"
                         w="3vw"
                         onClick={() => setPage((old) => Math.max(old - 1, 0))}
                         disabled={page === 1}
+                        bg="blackAlpha.500"
+                        _hover={{ bg: 'blackAlpha.600' }}
+                        icon={<ArrowBackIcon />}
+                        aria-label={`Next page`}
+                        size="lg"
                     >
                         {`⇦`}
-                    </Button>
+                    </IconButton>
                 )}
                 {isLoading || isFetching ? (
                     Array.apply(null, Array(10)).map((_, i) => (
@@ -113,7 +128,7 @@ const Main: React.FC = ({}) => {
                     <FetchedMovies data={data} />
                 )}
                 {searchTerm && data && data.Search && (
-                    <Button
+                    <IconButton
                         h="25vh"
                         w="3vw"
                         onClick={() => {
@@ -126,9 +141,14 @@ const Main: React.FC = ({}) => {
                             isPreviousData ||
                             page >= 100
                         }
+                        bg="blackAlpha.500"
+                        _hover={{ bg: 'blackAlpha.600' }}
+                        icon={<ArrowForwardIcon />}
+                        size="lg"
+                        aria-label={`Next page`}
                     >
                         {`⇨`}
-                    </Button>
+                    </IconButton>
                 )}
             </Flex>
         </Flex>

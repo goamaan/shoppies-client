@@ -9,7 +9,7 @@ export type INominationsProps = {
 
 const Nominations: React.FC<INominationsProps> = ({ nominations }) => {
     return (
-        <Flex direction="row" justify="center">
+        <Flex direction="row" justify="center" flexBasis="30vh">
             {nominations.map((nomination) => (
                 <NominatedMovie
                     key={nomination.imdbID}

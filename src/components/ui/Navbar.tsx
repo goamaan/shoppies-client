@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
         <Box
             w="100%"
             textAlign="justify"
-            bgGradient="linear(to-r, shopify.200, bg.700)"
+            bgGradient="linear(to-b, shopify.100, bg.700)"
             bgClip="text"
             fontWeight="hairline"
             fontSize="6xl"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { Main } from '../components/Main';
 import { Navbar } from '../components/ui/Navbar';
 import Head from 'next/head';
@@ -20,10 +20,12 @@ const Index = () => (
                 content="initial-scale=1.0, width=device-width"
             />
         </Head>
-        <Navbar />
-        <Flex direction="column" mt="10vh">
-            <Main />
-        </Flex>
+        <Box bgGradient="linear(to-b,shopify.900,bg.700,shopify.500)">
+            <Navbar />
+            <Flex direction="column" mt="10vh" h="80vh">
+                <Main />
+            </Flex>
+        </Box>
     </>
 );
 

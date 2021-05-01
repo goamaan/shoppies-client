@@ -11,12 +11,11 @@ const CompleteBanner: React.FC<ICompleteBannerProps> = ({ isOpen }) => {
         <ScaleFade initialScale={0.9} in={isOpen}>
             <MotionBox
                 p="40px"
-                color="shopify.400"
+                color="bg.50"
                 mt="4"
                 rounded="md"
-                shadow="md"
-                fontSize="4xl"
-                fontWeight="thin"
+                fontSize="6em"
+                fontWeight="hairline"
                 overflow="hidden"
                 justifyContent="space-around"
             >
