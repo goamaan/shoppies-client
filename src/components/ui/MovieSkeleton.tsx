@@ -15,8 +15,7 @@ const MovieSkeleton: React.FC = () => {
             <Skeleton
                 h="25vh"
                 rounded="2xl"
-                startColor="pink.500"
-                endColor="orange.500"
+                startColor="shopify.900"
             ></Skeleton>
         </MotionBox>
     );
