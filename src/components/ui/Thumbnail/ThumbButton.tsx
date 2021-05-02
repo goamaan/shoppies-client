@@ -40,7 +40,7 @@ const ThumbButton: React.FC<IThumbButtonProps> = ({
                             background: isAdd ? 'shopify.400' : 'red.500',
                         }}
                         position="absolute"
-                        width="5em"
+                        width={['2em', '5em']}
                         top="50%"
                         left="50%"
                         transform="translate(-50%, -50%);"

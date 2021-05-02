@@ -45,6 +45,7 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
                             rounded="2xl"
                             transition="opacity 0.4s, transform 0.4s"
                             _hover={{ opacity: '0.3' }}
+                            maxW={['20vw', '20vw', '20vw', '10vw']}
                         />
                     </Tooltip>
                 ) : (
@@ -73,9 +74,8 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
             whileHover={{ scale: 1.2 }}
             onHoverStart={() => setShowButton(true)}
             onHoverEnd={() => setShowButton(false)}
-            maxW={['25vw', '30vw', '25vw', '12em']}
             minW={['25vw', '20vw', '15vw', '8em']}
-            minH={['20vh', '20vh', '15vh', '8em']}
+            mx="3vw"
         >
             <Box m="4" rounded="lg" alignItems="center" opacity="1">
                 {HeroContent}

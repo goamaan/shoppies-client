@@ -11,6 +11,11 @@ const MovieSkeleton: React.FC = () => {
             justifyContent="space-around"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            rounded="md"
+            minW={['25vw', '20vw', '15vw', '8em']}
+            mx="3vw"
+            overflowX="auto"
+            overflowY="hidden"
         >
             <Skeleton
                 h="25vh"

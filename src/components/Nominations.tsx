@@ -16,6 +16,7 @@ const Nominations: React.FC<INominationsProps> = ({ nominations }) => {
             flexDir="row"
             overflowX="auto"
             overflowY="hidden"
+            alignItems="center"
         >
             {nominations.length === 0 ? (
                 <MotionBox

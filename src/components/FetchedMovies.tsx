@@ -8,6 +8,8 @@ export type IFetchedMoviesProps = {
 };
 
 const FetchedMovies: React.FC<IFetchedMoviesProps> = ({ data }) => {
+    console.log(data?.Search);
+
     return (
         <>
             {data && data.Search && (
