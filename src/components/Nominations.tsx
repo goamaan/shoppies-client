@@ -18,9 +18,9 @@ const Nominations: React.FC<INominationsProps> = ({ nominations }) => {
 
     return (
         <SimpleBar
+            forceVisible="y"
             style={{
                 width: '50vw',
-                overflowX: 'auto',
                 overflowY: 'hidden',
             }}
         >

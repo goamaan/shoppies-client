@@ -18,19 +18,9 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useSearchStore } from '../../../store/searchStore';
 
-export type ISearchFilterProps = {
-    // setSearchType: React.Dispatch<React.SetStateAction<string>>;
-    // setSearchYear: React.Dispatch<React.SetStateAction<string>>;
-    // setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
-};
+export type ISearchFilterProps = {};
 
-const SearchFilter: React.FC<ISearchFilterProps> = (
-    {
-        // setAnyYear,
-        // setSearchType,
-        // setSearchYear,
-    },
-) => {
+const SearchFilter: React.FC<ISearchFilterProps> = () => {
     const [any, setAny] = useState(true);
     const [radioValue, setRadioValue] = useState('movie');
     const [year, setYear] = useState('2020');

@@ -77,12 +77,7 @@ const Main: React.FC = ({}) => {
             <CompleteBanner isOpen={isBannerOpen} />
         </Flex>
     ) : (
-        <Flex
-            direction="row"
-            justifyContent="space-between"
-            mt="4vh"
-            flexBasis="30vh"
-        >
+        <Flex direction="row" justifyContent="space-between" mt="4vh">
             <PageButtons
                 isPreviousData={isPreviousData}
                 page={page}
@@ -115,14 +110,9 @@ const Main: React.FC = ({}) => {
                 alignItems="center"
                 pt="1vh"
             >
-                Your nominations
+                Your nominations: {nominations.length}
             </MotionBox>
-            <Flex
-                justifyContent="center"
-                pt="4vh"
-                alignItems="center"
-                flexBasis="35vh"
-            >
+            <Flex justifyContent="center" pt="4vh" alignItems="center">
                 <Nominations nominations={nominations} />
             </Flex>
             <SearchBar />

@@ -5,21 +5,9 @@ import { useSearchStore } from '../../../store/searchStore';
 import { MotionBox } from '../MotionBox';
 import { SearchFilter } from './SearchFilter';
 
-export type ISearchBarProps = {
-    // setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-    // setSearchType: React.Dispatch<React.SetStateAction<string>>;
-    // setSearchYear: React.Dispatch<React.SetStateAction<string>>;
-    // setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
-};
+export type ISearchBarProps = {};
 
-const SearchBar: React.FC<ISearchBarProps> = (
-    {
-        // setSearchTerm,
-        // setAnyYear,
-        // setSearchType,
-        // setSearchYear,
-    },
-) => {
+const SearchBar: React.FC<ISearchBarProps> = () => {
     const [search, setSearch] = useState('');
     const setSearchTerm = useSearchStore((state) => state.setSearchTerm);
     const initial = useRef(true);
@@ -63,11 +51,7 @@ const SearchBar: React.FC<ISearchBarProps> = (
                     fontSize={['lg', 'xl']}
                     focusBorderColor="shopify.200"
                 />
-                <SearchFilter
-                // setSearchType={setSearchType}
-                // setSearchYear={setSearchYear}
-                // setAnyYear={setAnyYear}
-                />
+                <SearchFilter />
             </MotionBox>
             <Text
                 p="3vh"

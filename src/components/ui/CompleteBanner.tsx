@@ -11,7 +11,7 @@ const CompleteBanner: React.FC<ICompleteBannerProps> = ({ isOpen }) => {
         <ScaleFade initialScale={0.9} in={isOpen}>
             <MotionBox
                 p="40px"
-                color="bg.700"
+                color="bg.800"
                 mt="4"
                 rounded="md"
                 fontSize={['2em', '2em', '2em', '5em']}

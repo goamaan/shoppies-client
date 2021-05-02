@@ -25,7 +25,8 @@ const ThumbImage: React.FC<IThumbImageProps> = ({ movie }) => {
                         rounded="2xl"
                         transition="opacity 0.4s, transform 0.4s"
                         _hover={{ opacity: '0.3' }}
-                        maxW={['20vw', '20vw', '15vw', '8vw']}
+                        maxW={['20vw', '20vw', '15vw', '7vw']}
+                        maxH={['20vh', '20vh', '20vh', '20vh']}
                     />
                 </Tooltip>
             ) : (

@@ -13,13 +13,13 @@ const FetchedMovies: React.FC<IFetchedMoviesProps> = ({ data }) => {
         <>
             {data && data.Search && (
                 <SimpleBar
+                    forceVisible="y"
                     style={{
                         width: '70vw',
-                        overflowX: 'auto',
                         overflowY: 'hidden',
                     }}
                 >
-                    <Flex flexDir="row">
+                    <Flex flexDir="row" alignItems="center">
                         {data.Search.map((movie) => (
                             <FoundMovie key={movie.imdbID} movie={movie} />
                         ))}
