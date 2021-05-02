@@ -10,14 +10,16 @@ import { FetchedMovies } from './FetchedMovies';
 import { CompleteBanner } from './ui/CompleteBanner';
 import { fetchMovies } from '../api-fetch';
 import { PageButtons } from './ui/PageButtons';
+import { MotionBox } from './ui/MotionBox';
+import { useSearchStore } from '../store/searchStore';
 
 const Main: React.FC = ({}) => {
     const toast = useToast();
     const [page, setPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [searchType, setSearchType] = useState('movie');
-    const [searchYear, setSearchYear] = useState('2020');
-    const [anyYear, setAnyYear] = useState(true);
+    const searchTerm = useSearchStore((state) => state.searchTerm);
+    const searchType = useSearchStore((state) => state.searchType);
+    const searchYear = useSearchStore((state) => state.searchYear);
+    const anyYear = useSearchStore((state) => state.anyYear);
     const nominations = useNominationStore((state) => state.nominations);
     const { isOpen: isBannerOpen, onOpen, onClose } = useDisclosure();
     const toastId = 'nomination-toast';
@@ -79,7 +81,7 @@ const Main: React.FC = ({}) => {
             direction="row"
             justifyContent="space-between"
             mt="4vh"
-            flexBasis="35vh"
+            flexBasis="30vh"
         >
             <PageButtons
                 isPreviousData={isPreviousData}
@@ -101,21 +103,29 @@ const Main: React.FC = ({}) => {
 
     return (
         <Flex direction="column" justifyContent="space-between">
+            <MotionBox
+                color="bg.500"
+                rounded="md"
+                fontSize={['lg', 'xl', '2xl', '3xl']}
+                fontWeight="thin"
+                textAlign="center"
+                display="flex"
+                justifyContent="center"
+                flexDir="row"
+                alignItems="center"
+                pt="1vh"
+            >
+                Your nominations
+            </MotionBox>
             <Flex
-                direction="row"
                 justifyContent="center"
                 pt="4vh"
                 alignItems="center"
-                flexBasis="30vh"
+                flexBasis="35vh"
             >
                 <Nominations nominations={nominations} />
             </Flex>
-            <SearchBar
-                setSearchTerm={setSearchTerm}
-                setSearchType={setSearchType}
-                setSearchYear={setSearchYear}
-                setAnyYear={setAnyYear}
-            />
+            <SearchBar />
             {HeroContent}
         </Flex>
     );

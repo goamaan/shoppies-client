@@ -1,23 +1,27 @@
 import { Input } from '@chakra-ui/input';
 import { Flex, Text } from '@chakra-ui/layout';
 import { useEffect, useRef, useState } from 'react';
+import { useSearchStore } from '../../../store/searchStore';
 import { MotionBox } from '../MotionBox';
 import { SearchFilter } from './SearchFilter';
 
 export type ISearchBarProps = {
-    setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-    setSearchType: React.Dispatch<React.SetStateAction<string>>;
-    setSearchYear: React.Dispatch<React.SetStateAction<string>>;
-    setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
+    // setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+    // setSearchType: React.Dispatch<React.SetStateAction<string>>;
+    // setSearchYear: React.Dispatch<React.SetStateAction<string>>;
+    // setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SearchBar: React.FC<ISearchBarProps> = ({
-    setSearchTerm,
-    setAnyYear,
-    setSearchType,
-    setSearchYear,
-}) => {
+const SearchBar: React.FC<ISearchBarProps> = (
+    {
+        // setSearchTerm,
+        // setAnyYear,
+        // setSearchType,
+        // setSearchYear,
+    },
+) => {
     const [search, setSearch] = useState('');
+    const setSearchTerm = useSearchStore((state) => state.setSearchTerm);
     const initial = useRef(true);
 
     useEffect(() => {
@@ -34,7 +38,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({
     }, [setSearchTerm, search]);
 
     return (
-        <Flex direction="column" alignItems="center" mt="4vh">
+        <Flex direction="column" alignItems="center" mt="3vh">
             <MotionBox
                 w="50vw"
                 alignSelf="center"
@@ -60,9 +64,9 @@ const SearchBar: React.FC<ISearchBarProps> = ({
                     focusBorderColor="shopify.200"
                 />
                 <SearchFilter
-                    setSearchType={setSearchType}
-                    setSearchYear={setSearchYear}
-                    setAnyYear={setAnyYear}
+                // setSearchType={setSearchType}
+                // setSearchYear={setSearchYear}
+                // setAnyYear={setAnyYear}
                 />
             </MotionBox>
             <Text
@@ -71,7 +75,8 @@ const SearchBar: React.FC<ISearchBarProps> = ({
                 fontSize={['1em', '1.5em']}
                 fontWeight="hairline"
             >
-                Hover over movies to see details
+                Hover over movies to see details | Scroll to see more movies |
+                Use side buttons to fetch next/previous results
             </Text>
         </Flex>
     );

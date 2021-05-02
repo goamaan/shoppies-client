@@ -1,6 +1,6 @@
 import { CheckCircleIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Box, Image, Tooltip } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { ResponseStructure } from '../../../dto/response.dto';
 import { MotionBox } from '../MotionBox';
 import { ThumbButton } from './ThumbButton';
@@ -19,11 +19,10 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
     type,
     alreadyAdded,
 }) => {
-    const [showButton, setShowButton] = useState(false);
     const isAdd = type === 'add';
     const label = isAdd ? 'Nominate item' : 'Remove Nomination';
     const icon = isAdd ? (
-        <CheckCircleIcon color="white" />
+        <CheckCircleIcon color="gray.600" />
     ) : (
         <DeleteIcon color="white" />
     );
@@ -31,7 +30,7 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
     const HeroContent =
         type === 'add' && alreadyAdded ? (
             <>
-                {movie.Poster ? (
+                {movie.Poster !== 'N/A' ? (
                     <Tooltip
                         label="Already nominated!"
                         placement="top"
@@ -45,11 +44,28 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
                             rounded="2xl"
                             transition="opacity 0.4s, transform 0.4s"
                             _hover={{ opacity: '0.3' }}
-                            maxW={['20vw', '20vw', '20vw', '10vw']}
+                            maxW={['20vw', '20vw', '15vw', '8vw']}
                         />
                     </Tooltip>
                 ) : (
-                    <Box bg="gray.200" />
+                    <Tooltip
+                        label={`${movie.Title} - ${movie.Year}`}
+                        placement="top"
+                        fontSize="lg"
+                        fontWeight="semibold"
+                        color="#008060"
+                        hasArrow
+                        background="#fbf7ed"
+                    >
+                        <Image
+                            alt={movie.Title}
+                            src="https://i.imgur.com/Grnb6i8.png"
+                            rounded="2xl"
+                            transition="opacity 0.4s, transform 0.4s"
+                            _hover={{ opacity: '0.3' }}
+                            maxW={['20vw', '20vw', '15vw', '8vw']}
+                        />
+                    </Tooltip>
                 )}
             </>
         ) : (
@@ -59,7 +75,6 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
                     movie={movie}
                     callback={callback}
                     label={label}
-                    showButton={showButton}
                     Icon={icon}
                     isAdd={isAdd}
                 />
@@ -71,13 +86,19 @@ const Thumbnail: React.FC<IThumbnailProps> = ({
             rounded="md"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            whileHover={{ scale: 1.2 }}
-            onHoverStart={() => setShowButton(true)}
-            onHoverEnd={() => setShowButton(false)}
+            whileHover={{ scale: 0.9 }}
             minW={['25vw', '20vw', '15vw', '8em']}
-            mx="3vw"
+            mx={type === 'add' ? '3vw' : '0vw'}
         >
-            <Box m="4" rounded="lg" alignItems="center" opacity="1">
+            <Box
+                m="4"
+                rounded="lg"
+                alignItems="center"
+                opacity="1"
+                display="flex"
+                flexDir="column"
+                justifyContent="center"
+            >
                 {HeroContent}
             </Box>
         </MotionBox>

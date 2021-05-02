@@ -16,23 +16,29 @@ import {
     Checkbox,
 } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSearchStore } from '../../../store/searchStore';
 
 export type ISearchFilterProps = {
-    setSearchType: React.Dispatch<React.SetStateAction<string>>;
-    setSearchYear: React.Dispatch<React.SetStateAction<string>>;
-    setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
+    // setSearchType: React.Dispatch<React.SetStateAction<string>>;
+    // setSearchYear: React.Dispatch<React.SetStateAction<string>>;
+    // setAnyYear: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SearchFilter: React.FC<ISearchFilterProps> = ({
-    setAnyYear,
-    setSearchType,
-    setSearchYear,
-}) => {
+const SearchFilter: React.FC<ISearchFilterProps> = (
+    {
+        // setAnyYear,
+        // setSearchType,
+        // setSearchYear,
+    },
+) => {
     const [any, setAny] = useState(true);
     const [radioValue, setRadioValue] = useState('movie');
     const [year, setYear] = useState('2020');
     const initial = useRef(true);
     const initRef = React.useRef(null);
+    const setSearchType = useSearchStore((state) => state.setSearchType);
+    const setSearchYear = useSearchStore((state) => state.setSearchYear);
+    const setAnyYear = useSearchStore((state) => state.setAnyYear);
 
     useEffect(() => {
         if (initial.current) {

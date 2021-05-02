@@ -14,7 +14,7 @@ const CompleteBanner: React.FC<ICompleteBannerProps> = ({ isOpen }) => {
                 color="bg.700"
                 mt="4"
                 rounded="md"
-                fontSize="6em"
+                fontSize={['2em', '2em', '2em', '5em']}
                 fontWeight="hairline"
                 overflow="hidden"
                 justifyContent="space-around"
