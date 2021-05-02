@@ -10,12 +10,29 @@ export const fetchMovies = async (
     if (!searchTerm) {
         return;
     }
-    let moviesEndpoint;
+    let endpoint;
     if (anyYear) {
-        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&page=${page}&apikey=${API_KEY}`;
+        endpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&page=${page}&apikey=${API_KEY}`;
     } else {
-        moviesEndpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&y=${searchYear}&page=${page}&apikey=${API_KEY}`;
+        endpoint = `${API_URL}/?s=${searchTerm}&type=${searchType}&y=${searchYear}&page=${page}&apikey=${API_KEY}`;
     }
 
-    return moviesEndpoint && (await fetch(moviesEndpoint)).json();
+    return endpoint && (await fetch(endpoint)).json();
 };
+
+// export const fetchUsingId = async (ids?: string[]) => {
+//     if (ids === null || ids === undefined) {
+//         return;
+//     }
+//     let endpoint: string;
+//     let results: any[] = [];
+//     ids.forEach(async (id) => {
+//         endpoint = `${API_URL}/?i=${id}&apikey=${API_KEY}`;
+//         const res = (await fetch(endpoint)).json();
+//         results.push(res);
+//     });
+
+//     console.log(results);
+
+//     return results;
+// };

@@ -9,13 +9,6 @@ export type INominationsProps = {
 };
 
 const Nominations: React.FC<INominationsProps> = ({ nominations }) => {
-    console.log(
-        nominations
-            .map((nom) => nom.imdbID)
-            .join('')
-            .split('tt'),
-    );
-
     return (
         <SimpleBar
             forceVisible="y"

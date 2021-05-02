@@ -1,4 +1,11 @@
-import { Flex, useToast, useDisclosure } from '@chakra-ui/react';
+import {
+    Flex,
+    useToast,
+    useDisclosure,
+    Button,
+    Box,
+    Text,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from './ui/SearchBar/SearchBar';
 import { useQuery } from 'react-query';
@@ -16,6 +23,7 @@ import { useSearchStore } from '../store/searchStore';
 const Main: React.FC = ({}) => {
     const toast = useToast();
     const [page, setPage] = useState(1);
+    const [copied, setCopied] = useState(false);
     const searchTerm = useSearchStore((state) => state.searchTerm);
     const searchType = useSearchStore((state) => state.searchType);
     const searchYear = useSearchStore((state) => state.searchYear);
@@ -29,7 +37,7 @@ const Main: React.FC = ({}) => {
         Error
     >(
         [
-            `movies-${searchTerm}-${searchYear}-${anyYear}`,
+            `${searchType}-${searchTerm}-${searchYear}-${anyYear}`,
             page,
             searchType,
             searchYear,
@@ -112,9 +120,48 @@ const Main: React.FC = ({}) => {
             >
                 Your nominations: {nominations.length}
             </MotionBox>
+
             <Flex justifyContent="center" pt="4vh" alignItems="center">
                 <Nominations nominations={nominations} />
             </Flex>
+            {isBannerOpen && (
+                <Box
+                    m="4"
+                    rounded="lg"
+                    alignItems="center"
+                    opacity="1"
+                    display="flex"
+                    flexDir="column"
+                    justifyContent="center"
+                >
+                    <Button
+                        onClick={() =>
+                            navigator.clipboard
+                                .writeText(
+                                    `${
+                                        process.env.NODE_ENV === 'production'
+                                            ? 'https://shoppies-client.vercel.app/n/'
+                                            : 'localhost:3000/n/'
+                                    }${nominations
+                                        .map((nom) => nom.imdbID)
+                                        .join('')}`,
+                                )
+                                .then(() => setCopied(true))
+                        }
+                        disabled={copied}
+                        minW={['20vw', '15vw', '10vw', '8vw']}
+                    >
+                        {!copied ? 'Copy share link to clipboard' : 'Copied!'}
+                    </Button>
+                    <Text
+                        color="bg.300"
+                        fontSize={['0.5em', '1em']}
+                        fontWeight="hairline"
+                    >
+                        This feature has not been implemented yet
+                    </Text>
+                </Box>
+            )}
             <SearchBar />
             {HeroContent}
         </Flex>

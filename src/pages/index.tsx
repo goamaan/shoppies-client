@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex } from '@chakra-ui/react';
 import { Main } from '../components/Main';
 import { Navbar } from '../components/ui/Navbar';
@@ -12,7 +11,6 @@ const Index = () => (
             <title>The Shoppies</title>
             <link
                 rel="icon"
-                // from the actual shopify website
                 href="https://cdn.shopify.com/static/shopify-favicon.png"
             />
             <meta
