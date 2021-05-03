@@ -53,7 +53,7 @@
 #### React-query
 
 -   Powers the caching and pagination in this project.
--   Implementing caching from scratch is not something that I have learnt yet, which is why I decided to use a data-fetching library.
+-   Implementing caching from scratch can be done by using a map, generating a unique key for each search, however that would still require manual refetching of the data once caches are stale. While it can be done, I decided to use a minimal data-fetching library.
 -   The best data-fetching library that I have used yet, and I prefer the syntax it offers over something like SWR.
 
 ## Features
