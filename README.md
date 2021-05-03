@@ -9,7 +9,7 @@
 -   [Tech stack](#Tech-stack)
 -   [Justification](#Justification)
 -   [Features](#Features)
--   [To-do](#Todo)
+-   [To-do](#To-do)
 
 ---
 
@@ -90,6 +90,10 @@ useEffect(() => {
 ### Movie Skeleton during loading/fetching
 
 -   Display a pulsing movie skeleton when the API is being called to improve user experience.
+
+### Persists nominations to localstorage
+
+-   User nominations are persisted so they can leave the website and come back later 
 
 ### Responsive
 
